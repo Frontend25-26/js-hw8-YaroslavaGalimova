@@ -54,6 +54,12 @@ body {
     position: absolute;
     margin-left: var(--ml, 0);
     margin-bottom: var(--mb, 0);
+
+    transition: transform 250ms ease-in-out;
+}
+
+.piece.moving {
+    transform: translate(var(--dx), var(--dy));
 }
 
 .piece.white {
@@ -63,4 +69,89 @@ body {
     background: #272727;
 }
 
+.piece.white.selected {
+    background: rgb(217, 202, 157);
+}
 
+.piece.black.selected {
+    background: rgb(66, 3, 3);
+}
+
+.cell.marked {
+    outline: 4px solid rgb(66, 3, 3);
+    outline-offset: -4px;
+    position: relative;
+}
+
+.cell.invalid-move {
+    background-color: gray;
+}
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+
+    z-index: 1000;
+}
+
+.modal {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column;
+
+    width: 20%;
+
+    margin: 5%;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 2px #000;
+
+    background-color: #f0d9b5;
+}
+
+.modal > * {
+    margin: 5%;
+}
+
+.new-game {
+    background-color: #b58863;
+    color: #f0d9b5;
+
+    &:hover {
+        background-color: #272727;
+        color: #fff;
+    }
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.stats {
+    font-size: 1.2em;
+
+    display: grid;
+    gap: 0.5em;
+}
+
+@keyframes disappear {
+    from { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+    to   { 
+        transform: scale(0); 
+        opacity: 0; 
+    }
+}
+
+.piece.captured {
+    animation: disappear 300ms ease-in-out forwards;
+    pointer-events: none;
+}
